@@ -1,6 +1,5 @@
-import utime
-from machine import UART
-
+#from machine import UART
+class UART:...
 
 # # 0x01 - heartbeat packet identification, 0x02 - product information, 0x03 - UART upgrade, 0x05 - operation status,
 # 0x80 - human presence
@@ -44,8 +43,12 @@ class HSL_Frame:
 
         self.Checksum = self.calculate_csk(self)
 
+    @classmethod
+    def parse(cls,by: bytes):
+        ...
 
 
+HSL_Frame.parse(b"\x53\x59\x01\x02\x00\x01\x0F\xBF\x54\x43")
 
 
 class HumanStaticLite:
