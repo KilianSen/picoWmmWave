@@ -1,6 +1,6 @@
-from BaseFrame import HSL_Frame
-from ControlAndCommandWords import *
-from Errors import *
+from HumanStaticLite.API.BaseFrame import HSL_Frame
+from HumanStaticLite.API.ControlAndCommandWords import *
+from HumanStaticLite.Errors import *
 
 
 class Frame:

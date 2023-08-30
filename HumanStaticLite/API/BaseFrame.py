@@ -1,4 +1,4 @@
-from Errors import *
+from HumanStaticLite.Errors import *
 
 
 class HSL_Frame:
