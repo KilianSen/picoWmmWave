@@ -7,6 +7,7 @@ class ControlWords(Enum):
     UARTUrgrade: bytes = b'\x03'
     OperationStatus: bytes = b'\x05'
     HumanPresence: bytes = b'\x80'
+    UnderlyingOpenFunctionInformation: bytes = b'\x08'
 
 
 class SystemFunctionsCommandWords(Enum):
@@ -33,6 +34,13 @@ class WorkStatusCommandWords(Enum):
     SceneSettingsInquiry: bytes = b'\x87'
     SensitivitySettingInquiry: bytes = b'\x88'
 
+    MotionSpeedInquiry: bytes = b"\x85" # WHY THE HECK ARE U HERE ?? All simmilar functions are at cnt 0x08
+
+    # Custom Mode Setting
+    CustomModeSetting: bytes = b'\x09'
+    EndOfCustomModeSettings: bytes = b'\x0A'
+    CustomModeQuery: bytes = b'\x89'
+
     CNTW: ControlWords = ControlWords.OperationStatus
 
 
@@ -53,6 +61,39 @@ class HumanPresenceCommandWords(Enum):
 
 
 class UARTUpgradeCommandWords(Enum):
-    NOT_SUPPORTED: bytes = b'\x00'
+    StartUARTUpgrade: bytes = b"01"
+    UpgradePackageTransmission: bytes = b"\x02"
+    EndingTheUARTUpgrade: bytes = b"\x03"
 
     CNTW: ControlWords = ControlWords.UARTUrgrade
+
+
+class UnderlyingOpenFunctionInformationCommandWords(Enum):
+    UnderlyingOpenFunctionInformationOutputSwitch: bytes = b"\x00"
+    UnderlyingOpenFunctionInformationOutputSwitchInquiry: bytes = b"\x80"
+
+    ReportingOfSensorInformation: bytes = b"\x01"
+    ExistenceEnergyValueInquiry: bytes = b"\x81"
+    MotionEnergyValueInquiry: bytes = b"\x82"
+    StaticDistanceInquiry: bytes = b"\x83"
+    MotionDistanceInquiry: bytes = b"\x84"
+
+    # Underlying open parameter settin
+    ExistenceJudgmentThresholdSettings: bytes = b"\x08"
+    MotionTriggerThresholdSettings: bytes = b"\x09"
+    ExistencePerceptionBoundarySettings: bytes = b"\x0A"
+    MotionTriggerBoundarySetting: bytes = b"\x0B"
+    MotionTriggerTimeSetting: bytes = b"\x0C"
+    MotionToStillTimeSetting: bytes = b"\x0D"
+    TimeForEnteringNoPersonStateSetting: bytes = b"\x0E"
+
+    # Underlying open parameter inquir
+    ExistenceJudgmentThresholdInquiry: bytes = b"\x88"
+    MotionTriggerThresholdInquiry: bytes = b"\x89"
+    ExistencePerceptionBoundaryInquiry: bytes = b"\x8A"
+    MotionTriggerBoundaryInquiry: bytes = b"\x8B"
+    MotionTriggerTimeInquiry: bytes = b"\x8C"
+    MotionToStillTimeInquiry: bytes = b"\x8D"
+    TimeForEnteringNoPersonStateInquiry: bytes = b"\x8E"
+
+    CNTW: ControlWords = ControlWords.UnderlyingOpenFunctionInformation

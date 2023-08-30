@@ -4,13 +4,13 @@ from HumanStaticLite.Errors import *
 
 
 class Frame:
-    command: SystemFunctionsCommandWords | ProductInformationCommandWords | WorkStatusCommandWords | HumanPresenceCommandWords | UARTUpgradeCommandWords
+    command: SystemFunctionsCommandWords | ProductInformationCommandWords | WorkStatusCommandWords | HumanPresenceCommandWords | UARTUpgradeCommandWords | UnderlyingOpenFunctionInformationCommandWords
     data: bytes
     raw_frame: HSL_Frame
 
     def __init__(self,
                  command: SystemFunctionsCommandWords | ProductInformationCommandWords | WorkStatusCommandWords |
-                                HumanPresenceCommandWords | UARTUpgradeCommandWords,
+                                HumanPresenceCommandWords | UARTUpgradeCommandWords | UnderlyingOpenFunctionInformationCommandWords,
                  data: bytes,
                  raw_frame: HSL_Frame = None
                  ):
@@ -28,7 +28,8 @@ class Frame:
     def parse(cls, by: bytes):
         def autoparse_control_command(raw_control_word, raw_command_word):
             cmdw_enums = [SystemFunctionsCommandWords, ProductInformationCommandWords,
-                          WorkStatusCommandWords, HumanPresenceCommandWords, UARTUpgradeCommandWords]
+                          WorkStatusCommandWords, HumanPresenceCommandWords,
+                          UARTUpgradeCommandWords, UnderlyingOpenFunctionInformationCommandWords]
 
             for cmdwe in cmdw_enums:
                 if cmdwe.CNTW.value.value != raw_control_word:
