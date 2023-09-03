@@ -4,7 +4,7 @@ from enum import Enum
 class ControlWords(Enum):
     HeartbeatPacketIdentification: bytes = b'\x01'
     ProductInformation: bytes = b'\x02'
-    UARTUrgrade: bytes = b'\x03'
+    UARTUpgrade: bytes = b'\x03'
     OperationStatus: bytes = b'\x05'
     HumanPresence: bytes = b'\x80'
     UnderlyingOpenFunctionInformation: bytes = b'\x08'
@@ -14,7 +14,7 @@ class SystemFunctionsCommandWords(Enum):
     HeartbeatQuery: bytes = b'\x01'
     ModuleReset: bytes = b'\x02'
 
-    CNTW: ControlWords = ControlWords.HeartbeatPacketIdentification
+    ControlWordBackpoint: ControlWords = ControlWords.HeartbeatPacketIdentification
 
 
 class ProductInformationCommandWords(Enum):
@@ -23,25 +23,26 @@ class ProductInformationCommandWords(Enum):
     HardwareModelQuery: bytes = b'\xA3'
     FirmwareVersionQuery: bytes = b'\xA4'
 
-    CNTW: ControlWords = ControlWords.ProductInformation
+    ControlWordBackpoint: ControlWords = ControlWords.ProductInformation
 
 
 class WorkStatusCommandWords(Enum):
-    InitializationCompletedQuerry: bytes = b'\x01'
+    InitializationCompletedQuery: bytes = b'\x01'
     SceneSettings: bytes = b'\x07'
     SensitivitySetting: bytes = b'\x08'
     InitializationStatusInquiry: bytes = b'\x81'
     SceneSettingsInquiry: bytes = b'\x87'
     SensitivitySettingInquiry: bytes = b'\x88'
 
-    MotionSpeedInquiry: bytes = b"\x85" # WHY THE HECK ARE U HERE ?? All simmilar functions are at cnt 0x08
+    MotionSpeedInquiry: bytes = b"\x85"  # WHY THE HECK ARE U HERE ?? All similar functions are at
+    # ControlWordBackpoint 0x08
 
     # Custom Mode Setting
     CustomModeSetting: bytes = b'\x09'
     EndOfCustomModeSettings: bytes = b'\x0A'
     CustomModeQuery: bytes = b'\x89'
 
-    CNTW: ControlWords = ControlWords.OperationStatus
+    ControlWordBackpoint: ControlWords = ControlWords.OperationStatus
 
 
 class HumanPresenceCommandWords(Enum):
@@ -51,13 +52,13 @@ class HumanPresenceCommandWords(Enum):
     NoPersonTimeoutSetting: bytes = b'\x0A'
     ActiveReportingOfProximity: bytes = b'\x0B'
 
-    PresenceInforamtionInquiry: bytes = b'\x81'
-    MotionInforamtionInquiry: bytes = b'\x82'
+    PresenceInformationInquiry: bytes = b'\x81'
+    MotionInformationInquiry: bytes = b'\x82'
     BodyMovementInquiryParameterInquiry: bytes = b'\x83'
     NoPersonTimeoutStateInquiry: bytes = b'\x8A'
     ProximityInquiry: bytes = b'\x8B'
 
-    CNTW: ControlWords = ControlWords.HumanPresence
+    ControlWordBackpoint: ControlWords = ControlWords.HumanPresence
 
 
 class UARTUpgradeCommandWords(Enum):
@@ -65,7 +66,7 @@ class UARTUpgradeCommandWords(Enum):
     UpgradePackageTransmission: bytes = b"\x02"
     EndingTheUARTUpgrade: bytes = b"\x03"
 
-    CNTW: ControlWords = ControlWords.UARTUrgrade
+    ControlWordBackpoint: ControlWords = ControlWords.UARTUpgrade
 
 
 class UnderlyingOpenFunctionInformationCommandWords(Enum):
@@ -78,7 +79,7 @@ class UnderlyingOpenFunctionInformationCommandWords(Enum):
     StaticDistanceInquiry: bytes = b"\x83"
     MotionDistanceInquiry: bytes = b"\x84"
 
-    # Underlying open parameter settin
+    # Underlying open parameter setting
     ExistenceJudgmentThresholdSettings: bytes = b"\x08"
     MotionTriggerThresholdSettings: bytes = b"\x09"
     ExistencePerceptionBoundarySettings: bytes = b"\x0A"
@@ -87,7 +88,7 @@ class UnderlyingOpenFunctionInformationCommandWords(Enum):
     MotionToStillTimeSetting: bytes = b"\x0D"
     TimeForEnteringNoPersonStateSetting: bytes = b"\x0E"
 
-    # Underlying open parameter inquir
+    # Underlying open parameter inquiry
     ExistenceJudgmentThresholdInquiry: bytes = b"\x88"
     MotionTriggerThresholdInquiry: bytes = b"\x89"
     ExistencePerceptionBoundaryInquiry: bytes = b"\x8A"
@@ -96,4 +97,4 @@ class UnderlyingOpenFunctionInformationCommandWords(Enum):
     MotionToStillTimeInquiry: bytes = b"\x8D"
     TimeForEnteringNoPersonStateInquiry: bytes = b"\x8E"
 
-    CNTW: ControlWords = ControlWords.UnderlyingOpenFunctionInformation
+    ControlWordBackpoint: ControlWords = ControlWords.UnderlyingOpenFunctionInformation

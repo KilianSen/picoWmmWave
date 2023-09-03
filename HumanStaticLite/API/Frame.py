@@ -21,8 +21,11 @@ class Frame:
 
         if raw_frame is None:
             # noinspection PyTypeChecker
-            self.raw_frame = HSL_Frame(b'\x53\x59', command.CNTW.value.value, command.value, b'\x00',
-                                       len(data).to_bytes(), data, None, b'\x54\x43')
+            self.__update_raw_frame(command, data)
+
+    def __update_raw_frame(self, command, data):
+        self.raw_frame = HSL_Frame(b'\x53\x59', command.ControlWordBackpoint.value.value, command.value, b'\x00',
+                                   len(data).to_bytes(), data, None, b'\x54\x43')
 
     @classmethod
     def parse(cls, by: bytes):
@@ -32,10 +35,10 @@ class Frame:
                           UARTUpgradeCommandWords, UnderlyingOpenFunctionInformationCommandWords]
 
             for cmdwe in cmdw_enums:
-                if cmdwe.CNTW.value.value != raw_control_word:
+                if cmdwe.ControlWordBackpoint.value.value != raw_control_word:
                     continue
 
-                parsed_controlword = cmdwe.CNTW.value
+                parsed_controlword = cmdwe.ControlWordBackpoint.value
 
                 if raw_command_word not in [i.value for i in list(cmdwe.__members__.values())]:
                     continue
@@ -43,9 +46,13 @@ class Frame:
                 parsed_commandword = cmdwe(raw_command_word)
 
                 return parsed_controlword, parsed_commandword
-            raise CouldntAutoParseControlAndCommandWord
+            raise FailedAutoParseControlAndCommandWord(raw_control_word, raw_command_word)
 
         base = HSL_Frame.parse(by)
         _, command = autoparse_control_command(base.control_word, base.command_word)
 
         return cls(command, base.data, base)
+
+    def to_bytes(self):
+        self.__update_raw_frame(self.command, self.data)
+        return self.raw_frame.to_bytes()

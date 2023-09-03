@@ -33,6 +33,10 @@ class HSL_Frame:
             self.checksum = HSL_Frame.calculate_checksums(self).to_bytes()
         self.end_of_frame: bytes = end_of_frame
 
+    def to_bytes(self):
+        return (self.frame_header + self.control_word + self.command_word + self.length_h + self.length_l +
+                self.data + self.checksum + self.end_of_frame)
+
     @classmethod
     def calculate_checksums(cls, frame):
         frame: cls = frame
