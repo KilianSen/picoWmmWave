@@ -1,4 +1,7 @@
 # HumanStaticLitePy
+
+# Currently on hold
+
 Is a library used to communicate with a seeed studio 24ghz human presence sensor using (micro)python.
 
 This has been created using [Seeed Studio Usage Protocol](https://0.0.0.0/) and trial and error.
